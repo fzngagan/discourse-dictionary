@@ -1,6 +1,6 @@
 # DiscourseDictionary
 
-DiscourseDictionary is a plugin for ...
+A discourse plugin to add add meanings of a given word to the post
 
 ## Installation
 
