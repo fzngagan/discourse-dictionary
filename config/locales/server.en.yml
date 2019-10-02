@@ -1,0 +1,4 @@
+en:
+  site_settings:
+    discourse_dictionary_enabled: "Enable DiscourseDictionary plugin"
+    oxford_api_key: "Enter the api key for the Oxford Dictionary Api"
