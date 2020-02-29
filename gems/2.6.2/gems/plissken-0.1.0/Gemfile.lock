@@ -17,7 +17,7 @@ GEM
       rdoc
     json (1.7.7)
     minitest (4.6.1)
-    rake (10.0.3)
+    rake (13.0.1)
     rdoc (3.12.1)
       json (~> 1.4)
 
