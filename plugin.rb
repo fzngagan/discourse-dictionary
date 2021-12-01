@@ -3,11 +3,11 @@
 # version: 0.1
 # authors: fzngagan
 # url: https://github.com/fzngagan
-gem 'plissken', '0.1.0', {require: false}
-gem 'oxford_dictionary', '2.0.1', { require: true  }
+gem 'plissken', '0.1.0', require: false
+gem 'oxford_dictionary', '2.0.1', require: true
 
 register_asset "stylesheets/common/discourse-dictionary.scss"
-
+register_svg_icon "spell-check"
 
 enabled_site_setting :discourse_dictionary_enabled
 
@@ -22,15 +22,8 @@ def findMeaning(word, singular: true)
   definitions
 end
 
-
-
-
 after_initialize do
   require_dependency 'oxford_dictionary'
-  # puts 'debug'
-
-  # pp findMeaning 'swinging'
-  # abort('dict response')
 
   # see lib/plugin/instance.rb for the methods available in this context
   module ::DiscourseDictionary
@@ -39,9 +32,6 @@ after_initialize do
       isolate_namespace DiscourseDictionary
     end
   end
-
-
-
 
   require_dependency "application_controller"
   class DiscourseDictionary::DictionaryController < ::ApplicationController
@@ -57,7 +47,7 @@ after_initialize do
   end
 
   DiscourseDictionary::Engine.routes.draw do
-    get "/dictionary/:word" => "dictionary#definition"
+    get "/:word" => "dictionary#definition"
   end
 
   Discourse::Application.routes.append do
