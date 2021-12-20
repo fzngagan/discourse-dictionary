@@ -13,16 +13,16 @@ enabled_site_setting :discourse_dictionary_enabled
 
 PLUGIN_NAME ||= "DiscourseDictionary".freeze
 
-def findMeaning(word, singular: true)
-  client = OxfordDictionary.new(app_id:SiteSetting.oxford_app_id, app_key:SiteSetting.oxford_api_key)
-  entry = client.entry(word: word, dataset: 'en-us', params: {fields: 'definitions'})
-  return entry.results[0].lexicalEntries[0].entries[0].senses[0].definitions if singular
-  definitions = []
-  entry.results[0].lexicalEntries[0].entries[0].senses.each {|sense| definitions << sense}
-  definitions
-end
-
 after_initialize do
+  %w[
+    ../app/lib/api_client.rb
+    ../app/models/dictionary_meaning.rb
+    ../app/serializers/dictionary_meaning_serializer.rb
+    ../app/jobs/regular/cache_dictionary_meanings.rb
+  ].each do |path|
+    load File.expand_path(path, __FILE__)
+  end
+
   require_dependency 'oxford_dictionary'
 
   # see lib/plugin/instance.rb for the methods available in this context
@@ -41,8 +41,8 @@ after_initialize do
 
     def definition
       word = params[:word]
-
-      render json: success_json
+      meanings = DiscourseDictionary::OxfordApiClient.find_meanings(word)
+      render_serialized(meanings, DiscourseDictionary::DictionaryMeaningSerializer, root: "meanings")
     end
   end
 

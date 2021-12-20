@@ -6,7 +6,6 @@ function initializeDiscourseDictionary(api) {
 
   // see app/assets/javascripts/discourse/lib/plugin-api
   // for the functions available via the api object
-  const apiKey = api._lookupContainer("site-settings:main").oxford_api_key
   api.addToolbarPopupMenuOptionsCallback((composerController) => {
     const composerModel = composerController.model;
     if (
@@ -35,12 +34,8 @@ function initializeDiscourseDictionary(api) {
       const schemaModal = showModal("select-meaning-popup", {
         model: { word },
       });
-      
     }
   });
-
-
-
 }
 
 export default {
