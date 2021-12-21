@@ -1,7 +1,8 @@
 export function setup(helper) {
   if(!helper.markdownIt) { return; }
 
-  helper.allowList("div.dictionary-word");
+  helper.allowList("span.dictionary-word");
+
   helper.registerOptions((opts, siteSettings) => {
    opts.features["dictionary-block"] = !!siteSettings.discourse_dictionary_enabled;
   });
