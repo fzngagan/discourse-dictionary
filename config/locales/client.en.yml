@@ -4,3 +4,6 @@ en:
       composer:
         button:
           label: "Select Meaning"
+      modal:
+        button:
+          label: "Add Meaning"

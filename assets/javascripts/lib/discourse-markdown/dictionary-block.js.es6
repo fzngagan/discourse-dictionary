@@ -9,18 +9,17 @@ export function setup(helper) {
   helper.registerPlugin((md) => {
     md.inline.bbcode.ruler.push("dict", {
       tag: "dict",
-      wrap(startToken, endToken, tagInfo, content) {
-        startToken.type = 'div_open';
-        startToken.tag = 'div';
-        startToken.attrs = [['class', 'dictionary-word'], ['data-dict-meaning', tagInfo.attrs.meaning]];
+      wrap(startToken, endToken, info, content) {
+        startToken.type = 'span_open';
+        startToken.tag = 'span';
+        startToken.attrs = [['class', 'dictionary-word'], ['data-dict-meaning', info.attrs.meaning], ['data-dict-lexical-category', info.attrs.lexical]];
         startToken.content = content;
         startToken.nesting = 1;
 
-        endToken.type = 'div_close';
-        endToken.tag = 'div';
+        endToken.type = 'span_close';
+        endToken.tag = 'span';
         endToken.content = '';
         endToken.nesting = -1;
-
         return true;
       }
     });

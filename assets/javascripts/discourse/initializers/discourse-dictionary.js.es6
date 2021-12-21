@@ -30,10 +30,13 @@ function initializeDiscourseDictionary(api) {
   api.modifyClass("controller:composer", {
     @action
     showWordMeaningPopup() {
-      const word = this.get("toolbarEvent").getText();
+      const toolbarEvent = this.get("toolbarEvent");
+      let word = toolbarEvent.selected?.value;
       const schemaModal = showModal("select-meaning-popup", {
-        model: { word },
-      });
+        model: {
+          word
+        },
+      }).set("toolbarEvent", toolbarEvent);
     }
   });
 }

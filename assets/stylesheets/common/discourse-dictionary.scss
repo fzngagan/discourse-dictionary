@@ -1,2 +1,20 @@
-.discourse-dictionary {
+.word-meaning-selector {
+  .dict-word {
+    margin: 0 auto;
+  }
+}
+
+.dict-meanings {
+  display: flex;
+  flex-direction: column;
+  .dict-meaning {
+    display: grid;
+    grid-template-columns: 10% 80%;
+    margin: 0.5em 0;
+    padding: 0.5em;
+    border: 1px solid grey;
+    .dict-lexical-category {
+      font-weight: 700;
+    }
+  }
 }
