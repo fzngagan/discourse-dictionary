@@ -19,42 +19,46 @@
   }
 }
 
-div.dictionary-word {
-  display: inline-block;
-  .word {
-    text-decoration: underline;
-  }
-  .word:hover ~ .meaning_div {
-    display: block;
-  }
+#dictionary-tooltip {
+  background: #333;
+  color: white;
+  font-weight: bold;
+  padding: 4px 8px;
+  font-size: 13px;
+  border-radius: 4px;
+  z-index: 1000;
+}
 
-  .meaning_div {
-    position: relative;
-    background: #003fbd;
-    border-radius: .4em;
-    color: var(--secondary);
-    padding: 0.4em;
-    margin-top: 0.4em;
-    width: 180px;
-    display: none;
+#dict-arrow,
+#dict-arrow::before {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: inherit;
+}
 
-    .lexical {
-      font-weight: 700;
-    }
-  }
+#dict-arrow {
+  visibility: hidden;
+}
 
-  .meaning_div:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 10%;
-    width: 0;
-    height: 0;
-    border: 0.875em solid transparent;
-    border-bottom-color: #003fbd;
-    border-top: 0;
-    border-left: 0;
-    margin-left: -0.437em;
-    margin-top: -0.875em;
-  }
+#dict-arrow::before {
+  visibility: visible;
+  content: '';
+  transform: rotate(45deg);
+}
+
+#dictionary-tooltip[data-popper-placement^='top'] > #dict-arrow {
+  bottom: -4px;
+}
+
+#dictionary-tooltip[data-popper-placement^='bottom'] > #dict-arrow {
+  top: -4px;
+}
+
+#dictionary-tooltip[data-popper-placement^='left'] > #dict-arrow {
+  right: -4px;
+}
+
+#dictionary-tooltip[data-popper-placement^='right'] > #dict-arrow {
+  left: -4px;
 }
