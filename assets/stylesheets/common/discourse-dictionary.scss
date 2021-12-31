@@ -18,3 +18,43 @@
     }
   }
 }
+
+div.dictionary-word {
+  display: inline-block;
+  .word {
+    text-decoration: underline;
+  }
+  .word:hover ~ .meaning_div {
+    display: block;
+  }
+
+  .meaning_div {
+    position: relative;
+    background: #003fbd;
+    border-radius: .4em;
+    color: var(--secondary);
+    padding: 0.4em;
+    margin-top: 0.4em;
+    width: 180px;
+    display: none;
+
+    .lexical {
+      font-weight: 700;
+    }
+  }
+
+  .meaning_div:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    width: 0;
+    height: 0;
+    border: 0.875em solid transparent;
+    border-bottom-color: #003fbd;
+    border-top: 0;
+    border-left: 0;
+    margin-left: -0.437em;
+    margin-top: -0.875em;
+  }
+}
