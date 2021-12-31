@@ -1,5 +1,6 @@
-# name: DiscourseDictionary
+# name: discourse-dictionary
 # about:
+# transpile_js: true
 # version: 0.1
 # authors: fzngagan
 # url: https://github.com/fzngagan
