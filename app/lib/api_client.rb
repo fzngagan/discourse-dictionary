@@ -9,7 +9,8 @@ module DiscourseDictionary
     end
 
     def self.find_meanings(word)
-      if definition_collection = lookup_db(word).presence
+      if word_exists?(word)
+        definition_collection = DiscourseDictionary::Word.includes(definitions: :lexical_category).find_by_word(word)
         return definition_collection
       end
 
@@ -19,7 +20,7 @@ module DiscourseDictionary
         params: { fields: 'definitions' }
       )
 
-      results = response.results
+      results = response.results || [];
       definition_collection = []
       results.each do |result|
         result.lexicalEntries.each do |lexicalEntry|
@@ -28,7 +29,6 @@ module DiscourseDictionary
             entry.senses.each do |sense|
               sense.definitions.each do |definition|
                 definition_collection << {
-                  word: word, ## to maintain structural compatibility with the Active Record object
                   lexical_category: lexicalCategory,
                   definition: definition
                 }.with_indifferent_access
@@ -42,14 +42,17 @@ module DiscourseDictionary
         :cache_dictionary_meanings,
         word: word,
         definitions: definition_collection
-      )
+      ) if results.present?
 
-      definition_collection
+      serializable_object = WordDefinitionsSerializable.new
+      serializable_object.word = word
+      serializable_object.definitions = definition_collection
+      serializable_object
     end
 
-    def self.lookup_db(word)
-      DictionaryMeaning
-        .where(word: word)
+    def self.word_exists?(word)
+      DiscourseDictionary::Word
+        .exists?(word: word)
     end
   end
 end

@@ -62,3 +62,9 @@
 #dictionary-tooltip[data-popper-placement^='right'] > #dict-arrow {
   left: -4px;
 }
+
+.dictionary-word {
+  text-decoration: underline blue;
+  font-weight: 700;
+  cursor: pointer;
+}

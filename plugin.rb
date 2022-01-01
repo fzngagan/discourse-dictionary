@@ -17,8 +17,12 @@ PLUGIN_NAME ||= "DiscourseDictionary".freeze
 after_initialize do
   %w[
     ../app/lib/api_client.rb
-    ../app/models/dictionary_meaning.rb
-    ../app/serializers/dictionary_meaning_serializer.rb
+    ../app/lib/word_definitions_serializable.rb
+    ../app/models/discourse_dictionary/word.rb
+    ../app/models/discourse_dictionary/lexical_category.rb
+    ../app/models/discourse_dictionary/definiton.rb
+    ../app/serializers/definition_serializer.rb
+    ../app/serializers/word_definitions_serializer.rb
     ../app/jobs/regular/cache_dictionary_meanings.rb
   ].each do |path|
     load File.expand_path(path, __FILE__)
@@ -43,7 +47,8 @@ after_initialize do
     def definition
       word = params[:word]
       meanings = DiscourseDictionary::OxfordApiClient.find_meanings(word)
-      render_serialized(meanings, DiscourseDictionary::DictionaryMeaningSerializer, root: "meanings")
+      
+      render_serialized(meanings, DiscourseDictionary::WordDefinitionsSerializer)
     end
   end
 
