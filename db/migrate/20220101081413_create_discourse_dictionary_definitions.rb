@@ -4,7 +4,7 @@ class CreateDiscourseDictionaryDefinitions < ActiveRecord::Migration[6.1]
   def up
     create_table :discourse_dictionary_definitions do |t|
       t.string :definition
-      t.references :word, foreign_key: { to_table: :discourse_dictionary_words } , index: { name: :index_dict_definitions_on_dict_words }
+      t.references :word, foreign_key: { to_table: :discourse_dictionary_words }, index: { name: :index_dict_definitions_on_dict_words }
       t.references :lexical_category, foreign_key: { to_table: :discourse_dictionary_lexical_categories }, index: { name: :index_dict_definitions_on_dict_lexical_categories }
 
       t.timestamps
