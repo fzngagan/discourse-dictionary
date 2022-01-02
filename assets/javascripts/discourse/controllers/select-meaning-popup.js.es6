@@ -24,7 +24,7 @@ export default Controller.extend(ModalFunctionality, {
   getMeanings(word) {
     return ajax(`/discourse-dictionary/${word}`)
       .then(response => {
-        return response?.meanings;
+        return response?.word_definitions?.definitions;
       }).catch(popupAjaxError);
   },
 
