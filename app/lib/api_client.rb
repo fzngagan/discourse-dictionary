@@ -20,7 +20,7 @@ module DiscourseDictionary
         params: { fields: 'definitions' }
       )
 
-      results = response.results || [];
+      results = response.results || []
       definition_collection = []
       results.each do |result|
         result.lexicalEntries.each do |lexicalEntry|

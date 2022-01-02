@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Jobs
   class CacheDictionaryMeanings < ::Jobs::Base
     def execute(args)
@@ -12,7 +13,7 @@ module Jobs
       definitions.map! do |definition|
         definition[:word_id] = word_record.id
         definition[:lexical_category_id] = DiscourseDictionary::LexicalCategory.find_or_create_by!(lexical_category: definition[:lexical_category]).id
-        definition.delete(:lexical_category) 
+        definition.delete(:lexical_category)
         definition[:created_at] = Time.now
         definition[:updated_at] = Time.now
         definition

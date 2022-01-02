@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # name: discourse-dictionary
 # about:
 # transpile_js: true
@@ -21,6 +22,7 @@ after_initialize do
     ../app/models/discourse_dictionary/word.rb
     ../app/models/discourse_dictionary/lexical_category.rb
     ../app/models/discourse_dictionary/definiton.rb
+    ../app/controllers/dictionary_controller.rb
     ../app/serializers/definition_serializer.rb
     ../app/serializers/word_definitions_serializer.rb
     ../app/jobs/regular/cache_dictionary_meanings.rb
@@ -35,20 +37,6 @@ after_initialize do
     class Engine < ::Rails::Engine
       engine_name PLUGIN_NAME
       isolate_namespace DiscourseDictionary
-    end
-  end
-
-  require_dependency "application_controller"
-  class DiscourseDictionary::DictionaryController < ::ApplicationController
-    requires_plugin PLUGIN_NAME
-
-    before_action :ensure_logged_in
-
-    def definition
-      word = params[:word]
-      meanings = DiscourseDictionary::OxfordApiClient.find_meanings(word)
-      
-      render_serialized(meanings, DiscourseDictionary::WordDefinitionsSerializer)
     end
   end
 

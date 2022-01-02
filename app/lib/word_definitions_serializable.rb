@@ -9,7 +9,7 @@ module DiscourseDictionary
     class LexicalCategorySerializable
       include ActiveModel::Serialization
       attr_accessor :lexical_category
-                    
+
       def attributes
         { 'lexical_category' => nil }
       end
@@ -24,8 +24,6 @@ module DiscourseDictionary
         { 'definition' => nil }
       end
     end
-
-   
 
     def attributes
       {
