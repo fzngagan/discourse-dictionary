@@ -18,7 +18,9 @@ export default Controller.extend(ModalFunctionality, {
   },
 
   getMeanings(word) {
-    return ajax(`/discourse-dictionary/${word}`)
+    return ajax("/discourse-dictionary/word", {
+      data: { word },
+    })
       .then((response) => {
         return response?.word_definitions?.definitions;
       })
