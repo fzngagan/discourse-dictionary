@@ -6,5 +6,7 @@ class CreateDiscourseDictionaryWords < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
+
+    add_index(:discourse_dictionary_words, :word, name: "dict_word_unique", unique: true)
   end
 end

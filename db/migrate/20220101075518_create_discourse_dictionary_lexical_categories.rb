@@ -6,5 +6,7 @@ class CreateDiscourseDictionaryLexicalCategories < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
+
+    add_index(:discourse_dictionary_lexical_categories, :lexical_category, name: "dict_lexical_category_unique", unique: true)
   end
 end
