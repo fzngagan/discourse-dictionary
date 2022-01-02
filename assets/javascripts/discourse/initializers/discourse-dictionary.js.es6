@@ -20,9 +20,9 @@ function buildTooltip() {
 
 function dictionaryEventHandler(event) {
   popperElem?.destroy();
-  if(!event.target.classList.contains("dictionary-word")) {
+  if (!event.target.classList.contains("dictionary-word")) {
     return;
-  };
+  }
   event.preventDefault();
   event.stopPropagation();
   const dictElement = event.target;
@@ -40,7 +40,9 @@ function dictionaryEventHandler(event) {
   `;
 
   const tooltip = document.getElementById("dictionary-tooltip");
-  const contentDiv = tooltip.getElementsByClassName("dictionary-tooltip-content")[0];
+  const contentDiv = tooltip.getElementsByClassName(
+    "dictionary-tooltip-content"
+  )[0];
   contentDiv.innerHTML = meaningDiv.trim();
 
   popperElem = createPopper(dictElement, tooltip, {
@@ -96,12 +98,12 @@ function initializeDiscourseDictionary(api) {
     showWordMeaningPopup() {
       const toolbarEvent = this.get("toolbarEvent");
       let word = toolbarEvent.selected?.value;
-      const schemaModal = showModal("select-meaning-popup", {
+      showModal("select-meaning-popup", {
         model: {
-          word
+          word,
         },
       }).set("toolbarEvent", toolbarEvent);
-    }
+    },
   });
 }
 
@@ -110,5 +112,5 @@ export default {
 
   initialize() {
     withPluginApi("0.8.24", initializeDiscourseDictionary);
-  }
+  },
 };
