@@ -40,8 +40,16 @@ after_initialize do
     end
   end
 
+  add_to_serializer(:current_user, :can_create_dictionary_meaning) do
+    object.can_create_dictionary_meaning?
+  end
+
+  add_to_class(:user, :can_create_dictionary_meaning?) do
+    has_trust_level_or_staff?(SiteSetting.discourse_dictionary_min_trust_level)
+  end
+
   DiscourseDictionary::Engine.routes.draw do
-    get "/:word" => "dictionary#definition"
+    get "word" => "dictionary#definition"
   end
 
   Discourse::Application.routes.append do
