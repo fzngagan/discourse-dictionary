@@ -2,6 +2,9 @@ import { withPluginApi } from "discourse/lib/plugin-api";
 import { action } from "@ember/object";
 import showModal from "discourse/lib/show-modal";
 import { createPopper } from "@popperjs/core";
+import { getOwner } from "discourse-common/lib/get-owner";
+import bootbox from "bootbox";
+import I18n from "I18n";
 
 let popperElem;
 function buildTooltip() {
@@ -71,10 +74,12 @@ function dictionaryEventHandler(event) {
 function initializeDiscourseDictionary(api) {
   document.documentElement.append(buildTooltip());
   window.addEventListener("click", dictionaryEventHandler);
-
-  api.addToolbarPopupMenuOptionsCallback((composerController) => {
-    const composerModel = composerController.model;
+  api.onToolbarCreate((toolbar) => {
+    const composerModel = getOwner(this).lookup("controller:composer").model;
+    const currentUser = api.getCurrentUser();
     if (
+      currentUser &&
+      currentUser.can_create_dictionary_meaning &&
       composerModel &&
       !composerModel.replyingToTopic &&
       (composerModel.topicFirstPost ||
@@ -83,26 +88,31 @@ function initializeDiscourseDictionary(api) {
           composerModel.post &&
           composerModel.post.post_number === 1))
     ) {
-      return {
-        label: "discourse_dictionary.composer.button.label",
+      toolbar.addButton({
+        title: "discourse_dictionary.composer.button.label",
         id: "insertWordMeaning",
-        group: "insertions",
+        group: "extras",
         icon: "spell-check",
-        action: "showWordMeaningPopup",
-      };
+        sendAction: (event) => {
+          toolbar.context.send("showWordMeaningPopup", event);
+        },
+      });
     }
   });
 
-  api.modifyClass("controller:composer", {
+  api.modifyClass("component:d-editor", {
     @action
-    showWordMeaningPopup() {
-      const toolbarEvent = this.get("toolbarEvent");
+    showWordMeaningPopup(toolbarEvent) {
       let word = toolbarEvent.selected?.value;
-      showModal("select-meaning-popup", {
-        model: {
-          word,
-        },
-      }).set("toolbarEvent", toolbarEvent);
+      if (word) {
+        showModal("select-meaning-popup", {
+          model: {
+            word,
+          },
+        }).set("toolbarEvent", toolbarEvent);
+      } else {
+        bootbox.alert(I18n.t("discourse_dictionary.composer.error"));
+      }
     },
   });
 }
