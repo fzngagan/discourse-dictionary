@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 module DiscourseDictionary
   class DictionaryController < ::ApplicationController
+    requires_plugin ::DiscourseDictionary::Engine.engine_name.dasherize
     before_action :ensure_logged_in
 
     def definition
