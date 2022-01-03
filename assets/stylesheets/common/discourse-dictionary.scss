@@ -5,7 +5,7 @@
         margin: 0 auto;
       }
     }
-  
+
     .dict-meanings {
       display: flex;
       flex-direction: column;
@@ -19,7 +19,7 @@
           .dict-lexical-category {
             font-weight: 700;
           }
-          .dict-definition{
+          .dict-definition {
             display: inline-block;
             width: 100%;
             word-wrap: break-word;
@@ -29,7 +29,6 @@
     }
   }
 }
-
 
 #dictionary-tooltip {
   background: #333;
@@ -56,23 +55,23 @@
 
 #dict-arrow::before {
   visibility: visible;
-  content: '';
+  content: "";
   transform: rotate(45deg);
 }
 
-#dictionary-tooltip[data-popper-placement^='top'] > #dict-arrow {
+#dictionary-tooltip[data-popper-placement^="top"] > #dict-arrow {
   bottom: -4px;
 }
 
-#dictionary-tooltip[data-popper-placement^='bottom'] > #dict-arrow {
+#dictionary-tooltip[data-popper-placement^="bottom"] > #dict-arrow {
   top: -4px;
 }
 
-#dictionary-tooltip[data-popper-placement^='left'] > #dict-arrow {
+#dictionary-tooltip[data-popper-placement^="left"] > #dict-arrow {
   right: -4px;
 }
 
-#dictionary-tooltip[data-popper-placement^='right'] > #dict-arrow {
+#dictionary-tooltip[data-popper-placement^="right"] > #dict-arrow {
   left: -4px;
 }
 
