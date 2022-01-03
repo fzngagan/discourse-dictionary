@@ -18,9 +18,17 @@ enabled_site_setting :discourse_dictionary_enabled
 PLUGIN_NAME ||= "discourse-dictionary".freeze
 
 after_initialize do
+  module ::DiscourseDictionary
+    class Engine < ::Rails::Engine
+      engine_name PLUGIN_NAME
+      isolate_namespace DiscourseDictionary
+    end
+  end
+
   %w[
-    ../app/lib/api_client.rb
-    ../app/lib/word_definitions_serializable.rb
+    ../app/lib/api_clients/api_client.rb
+    ../app/lib/api_clients/oxford_api_client.rb
+    ../app/lib/serializables/word_definitions_serializable.rb
     ../app/models/discourse_dictionary/word.rb
     ../app/models/discourse_dictionary/lexical_category.rb
     ../app/models/discourse_dictionary/definiton.rb
@@ -30,13 +38,6 @@ after_initialize do
     ../app/jobs/regular/cache_dictionary_meanings.rb
   ].each do |path|
     load File.expand_path(path, __FILE__)
-  end
-
-  module ::DiscourseDictionary
-    class Engine < ::Rails::Engine
-      engine_name PLUGIN_NAME
-      isolate_namespace DiscourseDictionary
-    end
   end
 
   add_to_serializer(:current_user, :can_create_dictionary_meaning) do
