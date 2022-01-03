@@ -4,7 +4,7 @@ module DiscourseDictionary
   class WordDefinitionsSerializable
     include ActiveModel::Serialization
     attr_accessor :word,
-    :definitions
+                  :definitions
 
     class LexicalCategorySerializable
       include ActiveModel::Serialization
