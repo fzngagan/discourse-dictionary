@@ -1,23 +1,35 @@
-.word-meaning-selector {
-  .dict-word {
-    margin: 0 auto;
-  }
-}
-
-.dict-meanings {
-  display: flex;
-  flex-direction: column;
-  .dict-meaning {
-    display: grid;
-    grid-template-columns: 10% 80%;
-    margin: 0.5em 0;
-    padding: 0.5em;
-    border: 1px solid grey;
-    .dict-lexical-category {
-      font-weight: 700;
+.select-meaning-popup-modal {
+  .modal-body {
+    .word-meaning-selector {
+      .dict-word {
+        margin: 0 auto;
+      }
+    }
+  
+    .dict-meanings {
+      display: flex;
+      flex-direction: column;
+      .dict-meaning {
+        display: grid;
+        grid-template-columns: 10% 80%;
+        margin: 0.5em 0;
+        padding: 0.5em;
+        border-bottom: 1px solid var(--primary-low-mid);
+        .dict-meaning-info {
+          .dict-lexical-category {
+            font-weight: 700;
+          }
+          .dict-definition{
+            display: inline-block;
+            width: 100%;
+            word-wrap: break-word;
+          }
+        }
+      }
     }
   }
 }
+
 
 #dictionary-tooltip {
   background: #333;

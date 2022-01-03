@@ -9,11 +9,13 @@ gem 'plissken', '0.1.0', require: false
 gem 'oxford_dictionary', '2.0.1', require: true
 
 register_asset "stylesheets/common/discourse-dictionary.scss"
+register_asset "stylesheets/desktop/discourse-dictionary.scss", :desktop
+register_asset "stylesheets/mobile/discourse-dictionary.scss", :mobile
 register_svg_icon "spell-check"
 
 enabled_site_setting :discourse_dictionary_enabled
 
-PLUGIN_NAME ||= "DiscourseDictionary".freeze
+PLUGIN_NAME ||= "discourse-dictionary".freeze
 
 after_initialize do
   %w[
@@ -30,9 +32,6 @@ after_initialize do
     load File.expand_path(path, __FILE__)
   end
 
-  require_dependency 'oxford_dictionary'
-
-  # see lib/plugin/instance.rb for the methods available in this context
   module ::DiscourseDictionary
     class Engine < ::Rails::Engine
       engine_name PLUGIN_NAME
