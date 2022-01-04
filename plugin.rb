@@ -40,6 +40,14 @@ after_initialize do
     load File.expand_path(path, __FILE__)
   end
 
+  on(:site_setting_changed) do |name, old_value, new_value|
+    DiscourseDictionary::OxfordApiClient.reset! if (
+      %i[
+        discourse_dictionary_oxford_app_id
+        discourse_dictionary_oxford_api_key
+      ].include?(name))
+  end
+
   add_to_serializer(:current_user, :can_create_dictionary_meaning) do
     object.can_create_dictionary_meaning?
   end

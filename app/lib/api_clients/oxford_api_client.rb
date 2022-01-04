@@ -3,9 +3,14 @@ module DiscourseDictionary
   class OxfordApiClient < ::DiscourseDictionary::DictionaryApiClient
     def self.client
       @@instance ||= OxfordDictionary.new(
-        app_id: SiteSetting.oxford_app_id,
-        app_key: SiteSetting.oxford_api_key
+        app_id: SiteSetting.discourse_dictionary_oxford_app_id,
+        app_key: SiteSetting.discourse_dictionary_oxford_api_key
       )
+    end
+
+    def self.reset!
+      @@instance = nil
+      client
     end
 
     def self.fetch_from_api(word)

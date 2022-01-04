@@ -2,9 +2,9 @@ plugins:
   discourse_dictionary_enabled:
     default: true
     client: true
-  oxford_app_id:
+  discourse_dictionary_oxford_app_id:
     default: ""
-  oxford_api_key:
+  discourse_dictionary_oxford_api_key:
     default: ""
   discourse_dictionary_min_trust_level:
     default: 2
