@@ -1,3 +1,11 @@
 en:
   js:
     discourse_dictionary:
+      composer:
+        button:
+          label: "Select Meaning"
+        error: "Select a word, then click the button"
+      modal:
+        button:
+          label: "Add Meaning"
+        word: "Word"

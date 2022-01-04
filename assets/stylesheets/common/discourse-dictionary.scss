@@ -1,2 +1,82 @@
-.discourse-dictionary {
+.select-meaning-popup-modal {
+  .modal-body {
+    .word-meaning-selector {
+      .dict-word {
+        margin: 0 auto;
+      }
+    }
+
+    .dict-meanings {
+      display: flex;
+      flex-direction: column;
+      .dict-meaning {
+        display: grid;
+        grid-template-columns: 10% 80%;
+        margin: 0.5em 0;
+        padding: 0.5em;
+        border-bottom: 1px solid var(--primary-low-mid);
+        .dict-meaning-info {
+          .dict-lexical-category {
+            font-weight: 700;
+          }
+          .dict-definition {
+            display: inline-block;
+            width: 100%;
+            word-wrap: break-word;
+          }
+        }
+      }
+    }
+  }
+}
+
+#dictionary-tooltip {
+  background: #333;
+  color: white;
+  font-weight: bold;
+  padding: 4px 8px;
+  font-size: 13px;
+  border-radius: 4px;
+  z-index: 1000;
+  max-width: 75vh;
+}
+
+#dict-arrow,
+#dict-arrow::before {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: inherit;
+}
+
+#dict-arrow {
+  visibility: hidden;
+}
+
+#dict-arrow::before {
+  visibility: visible;
+  content: "";
+  transform: rotate(45deg);
+}
+
+#dictionary-tooltip[data-popper-placement^="top"] > #dict-arrow {
+  bottom: -4px;
+}
+
+#dictionary-tooltip[data-popper-placement^="bottom"] > #dict-arrow {
+  top: -4px;
+}
+
+#dictionary-tooltip[data-popper-placement^="left"] > #dict-arrow {
+  right: -4px;
+}
+
+#dictionary-tooltip[data-popper-placement^="right"] > #dict-arrow {
+  left: -4px;
+}
+
+.dictionary-word {
+  text-decoration: underline blue;
+  font-weight: 700;
+  cursor: pointer;
 }

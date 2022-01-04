@@ -6,4 +6,6 @@ plugins:
     default: ""
   oxford_api_key:
     default: ""
-
+  discourse_dictionary_min_trust_level:
+    default: 2
+    enum: "TrustLevelAndStaffSetting"

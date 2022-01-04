@@ -1,0 +1,33 @@
+{{#d-modal-body class="word-meaning-selector"}}
+  <label class="dict-word">{{i18n "discourse_dictionary.modal.word"}}: {{model.word}}</label>
+
+  <div class="dict-meanings">
+    {{#conditional-loading-spinner condition=isLoading}}
+      {{#each meanings as |meaning|}}
+        <div class="dict-meaning">
+          <div class="dict-radio-button">
+            {{radio-button
+              name="dict-meaning"
+              value=meaning.definition
+              selection=selectedDefinition
+              onChange=(action "changeDefinition")
+            }}
+          </div>
+          <div class="dict-meaning-info">
+            <label class="dict-lexical-category">{{meaning.lexical_category}}</label>
+            <label class="dict-definition">
+              {{meaning.definition}}
+            </label>
+          </div>
+        </div>
+      {{/each}}
+    {{/conditional-loading-spinner}}
+
+    {{d-button
+      action=(action "insertMeaning")
+      icon="spell-check"
+      class="btn-primary"
+      label="discourse_dictionary.modal.button.label"
+      disabled=insertDisabled}}
+  </div>
+{{/d-modal-body}}
