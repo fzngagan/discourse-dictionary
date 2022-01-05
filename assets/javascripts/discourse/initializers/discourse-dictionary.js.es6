@@ -21,13 +21,8 @@ function buildTooltip() {
   return template.content.firstChild;
 }
 
-function dictionaryEventHandler(event) {
+function showTooltip() {
   popperElem?.destroy();
-  if (!event.target.classList.contains("dictionary-word")) {
-    return;
-  }
-  event.preventDefault();
-  event.stopPropagation();
   const dictElement = event.target;
   const lexicalCategory = dictElement.dataset.dictLexicalCategory;
   const meaning = dictElement.dataset.dictMeaning;
@@ -71,9 +66,21 @@ function dictionaryEventHandler(event) {
   });
 }
 
+function hideTooltip() {
+  popperElem?.destroy();
+}
+
 function initializeDiscourseDictionary(api) {
   document.documentElement.append(buildTooltip());
-  window.addEventListener("click", dictionaryEventHandler);
+
+  api.decorateCookedElement((post) => {
+    let wordElements = post.getElementsByClassName("dictionary-word");
+    Array.from(wordElements).forEach((element) => {
+      element.addEventListener("mouseenter", showTooltip);
+      element.addEventListener("mouseleave", hideTooltip);
+    });
+  });
+
   api.onToolbarCreate((toolbar) => {
     const composerModel = getOwner(this).lookup("controller:composer").model;
     const currentUser = api.getCurrentUser();
